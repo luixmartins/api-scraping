@@ -1,5 +1,6 @@
 from fastapi import FastAPI 
 from collection import Collection 
+import managedb
 
 app = FastAPI()
 
@@ -9,7 +10,7 @@ async def root():
 
 @app.post("/dataupdate")
 async def update_database():
-
-    links = Collection(url='https://www.noticiasagricolas.com.br/noticias/boi/').get_links()
-
-    return {links}
+    response_soybean = Collection(url='https://www.noticiasagricolas.com.br/noticias/soja/', commoditie='soja').scraping_commoditie()
+    response_corn = Collection(url='https://www.noticiasagricolas.com.br/noticias/milho/', commoditie='milho').scraping_commoditie()
+    
+    return {"Message": {response_soybean, response_corn}}

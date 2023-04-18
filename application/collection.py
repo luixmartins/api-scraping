@@ -2,21 +2,17 @@ import re
 import urllib3 
 import numpy as np 
 import pandas as pd 
+import managedb
 from bs4 import BeautifulSoup
+from datetime import datetime 
 
 class Collection: 
-    def __init__(self, url: str, title: str) -> None:
+    def __init__(self, url: str, commoditie: str) -> None:
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
         
         self.http = urllib3.PoolManager()
         self.url = url 
-        self.last_headline = title
-
-    def verify_headline(self, headline_from_bd, headline_from_page):
-        if headline_from_bd != headline_from_page: 
-            return False 
-        else: 
-            return True 
+        self.commoditie = commoditie
 
     def get_links(self):
         try: 
@@ -45,14 +41,12 @@ class Collection:
                 date = date.get_text(strip=True).split(' ')[2]
                 date = pd.to_datetime(date, format='%d/%m/%Y')
 
+                if pd.to_datetime(datetime.today().strftime('%Y-%m-%d')) != date:
+                    break;
+
                 headline = soup.find('h1', {'class': 'page-title'})
                 if headline is not None:
                     headline = headline.get_text(strip=True)
-
-                    if self.verify_headline(headline_from_bd=self.last_headline, headline_from_page=headline):
-                        pass 
-                    else: break;
-
 
                 article = soup.find('div', {'class': 'materia'})
                 if article is not None:
@@ -62,8 +56,12 @@ class Collection:
                     for paragraph in article:
                         text += ' '.join(paragraph.find_all(text=True)).strip()
                     text = ' '.join(text.split(' '))
+
+                response = managedb.insert_data(date=date, headline=headline, text=text, link=url, lang='pt', commoditie=self.commoditie)
             else: 
                 return None 
+            
+        return response 
                 
 
 
