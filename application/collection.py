@@ -32,7 +32,7 @@ class Collection:
                 page = self.http.request('GET', url)
             except: 
                 print('Error')
-            
+            print(url)
             soup = BeautifulSoup(page.data, 'html.parser')
 
             date = soup.find('div', {'class': 'datas'})
@@ -57,11 +57,7 @@ class Collection:
                         text += ' '.join(paragraph.find_all(text=True)).strip()
                     text = ' '.join(text.split(' '))
 
-                response = managedb.insert_data(date=date, headline=headline, text=text, link=url, lang='pt', commoditie=self.commoditie)
-            else: 
-                return None 
-            
-        return response 
+                managedb.insert_data(date=date, headline=headline, text=text, link=url, lang='pt', commoditie=self.commoditie)
                 
 
 
