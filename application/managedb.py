@@ -4,10 +4,11 @@ from term_filter import Filter
 
 def create_connection():
     try:
-        conn = mysql.connector.connect(host='localhost',
-                                       database='agrotendenciadb',
-                                       user='root', 
-                                       password='')
+        conn = mysql.connector.connect(host='162.241.2.193',
+                                       database='agrote43_agrotendencia',
+                                       user='agrote43_root', 
+                                       password='T.xwycn[sDct',
+                                       charset='utf8mb4')
         
         if conn.is_connected():
             return conn
