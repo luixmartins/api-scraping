@@ -11,6 +11,7 @@ def create_connection():
                                        charset='utf8mb4')
         
         if conn.is_connected():
+            print("connected")
             return conn
     except Error as e: 
         print("Error message - ", e)

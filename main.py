@@ -8,7 +8,7 @@ app = FastAPI()
 async def root():
     return {"message": "Hello World"}
 
-@app.post("/dataupdate")
+@app.get("/dataupdate")
 async def update_database():
     response_soybean = Collection(url='https://www.noticiasagricolas.com.br/noticias/soja/', commoditie='soja').scraping_commoditie()
     response_corn = Collection(url='https://www.noticiasagricolas.com.br/noticias/milho/', commoditie='milho').scraping_commoditie()
