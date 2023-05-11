@@ -32,7 +32,6 @@ class Collection:
                 page = self.http.request('GET', url)
             except: 
                 print('Error')
-            print(url)
             soup = BeautifulSoup(page.data, 'html.parser')
 
             date = soup.find('div', {'class': 'datas'})
