@@ -37,13 +37,13 @@ def insert_data(**kwargs):
     connection = create_connection()
     cursor = connection.cursor()
 
-    sql = f'INSERT INTO news(date, headline, text, url, language, commodities_idCommodities) VALUES (%s, %s, %s, %s, %s, %s)'
+    sql = f'INSERT INTO news(date, headline, text, url, language, commodities_idCommodities, fonte_idFonte) VALUES (%s, %s, %s, %s, %s, %s, %s)'
     
     if kwargs['commoditie'] == 'soja':
         commoditie = 2
     else: commoditie = 1
 
-    cursor.execute(sql, (kwargs['date'], kwargs['headline'], kwargs['text'], kwargs['link'], kwargs['lang'], commoditie))
+    cursor.execute(sql, (kwargs['date'], kwargs['headline'], kwargs['text'], kwargs['link'], kwargs['lang'], commoditie, kwargs['id_fonte']))
     connection.commit()
 
     last_id = cursor.lastrowid

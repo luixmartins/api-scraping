@@ -56,7 +56,7 @@ class Collection:
                         text += ' '.join(paragraph.find_all(text=True)).strip()
                     text = ' '.join(text.split(' '))
 
-                managedb.insert_data(date=date, headline=headline, text=text, link=url, lang='pt', commoditie=self.commoditie)
+                managedb.insert_data(date=date, headline=headline, text=text, link=url, lang='pt', commoditie=self.commoditie, id_fonte=1)
                 
 
 
