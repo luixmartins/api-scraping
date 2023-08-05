@@ -60,8 +60,7 @@ class Collection_SCA:
                 date = pd.to_datetime(f'{day}/{month}/{year}', format='%d/%m/%Y')
                 
                 if pd.to_datetime(datetime.today().strftime('%Y-%m-%d')) != date:
-                    break;
-
+                   break;
                 article = soup.find('div', {'class': 'container-fluid'}).find_all({'p'})
 
                 text = ""
